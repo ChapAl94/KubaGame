@@ -52,9 +52,9 @@ class KubaGame:
         :param player_name:
         :return:
         """
-        if player_name == "player A":
+        if player_name == self._playerA_name:
             return self._playerA_pieces[2]
-        elif player_name == "player B":
+        elif player_name == self._playerB_name:
             return self._playerB_pieces[2]
 
     def get_marble(self, coordinates):
@@ -73,7 +73,22 @@ class KubaGame:
         scans the current board to get how many per each, returns a tuple (W,B,R)
         :return:
         """
-        pass
+        red_counter = 0
+        white_counter = 0
+        black_counter = 0
+        for i in self._gameboard:
+            for j in i:
+                if j == 'R':
+                    red_counter += 1
+                elif j == 'B':
+                    black_counter += 1
+                elif j=='W':
+                    white_counter += 1
+        piece_tuple = (white_counter,black_counter,red_counter)
+        return piece_tuple
+
+
+
 
     def move_left(self, column,row_board):
         """
@@ -95,6 +110,9 @@ class KubaGame:
         :param board:
         :return: new_row
         """
+
+
+
         pass
 
     def move_right(self, column, row_board):
@@ -121,6 +139,8 @@ class KubaGame:
         :param board:
         :return: new_row
         """
+
+
         pass
 
     def move_left_board(self,row,column,board):
@@ -153,6 +173,8 @@ class KubaGame:
         :param board:
         :return:
         """
+
+
         pass
 
     def move_foward_board(self, row, column, board):
@@ -287,3 +309,5 @@ class KubaGame:
         """
     pass
 
+game = KubaGame(('PlayerA', 'W'), ('PlayerB', 'B'))
+print(game.get_marble_count())
