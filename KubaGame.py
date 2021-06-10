@@ -35,8 +35,8 @@ class KubaGame :
                            ['', '', 'R', 'R', 'R', '', ''],
                            ['', 'R', 'R', 'R', 'R', 'R', ''],
                            ['', '', 'R', 'R', 'R', '', ''],
-                           ['W', 'W', '', 'R', '', 'B', 'B'],
-                           ['W', 'W', '', '', '', 'B', 'B']]
+                           ['B', 'B', '', 'R', '', 'W', 'W'],
+                           ['B', 'B', '', '', '', 'W', 'W']]
 
     def get_current_turn(self) :
         """ returns players name whose turn it is
@@ -443,12 +443,12 @@ class KubaGame :
 
 
 
-# game = KubaGame(('PlayerA', 'W'), ('PlayerB', 'B'))
-# print(game.get_marble_count()) #returns (8,8,13)
-# print(game.get_captured('PlayerA')) #returns 0
-# game.make_move('PlayerA', (6,5), 'F')
-# game.make_move('PlayerA', (6,5), 'L') #Cannot make this move
-# print(game.get_current_turn()) #returns 'PlayerB' because PlayerA has just played.
-# game.get_winner() #returns None
-#
-# game.get_marble((5,5)) #returns 'W'
+game = KubaGame(('PlayerA', 'W'), ('PlayerB', 'B'))
+print(game.get_marble_count()) #returns (8,8,13)
+print(game.get_captured('PlayerA')) #returns 0
+print(game.make_move('PlayerA', (6,5), 'F'))
+print(game.make_move('PlayerA', (6,5), 'L')) #Cannot make this move
+print(game.get_current_turn()) #returns 'PlayerB' because PlayerA has just played.
+print(game.get_winner()) #returns None
+
+print(game.get_marble((5,5)) )#returns 'W'
