@@ -19,20 +19,14 @@ class KubaGame :
         self._white = 'W'
         self._black = 'B'
         self._previous_move = []  # This matrix can store previous board movement and will get updated
-        # self._gameboard = [['W', 'W', '', '', '', 'B', 'B'],
-        #                    ['W', 'W', '', 'R', '', 'B', 'B'],
-        #                    ['', '', 'R', 'R', 'R', '', ''],
-        #                    ['', 'R', 'R', 'R', 'R', 'R', ''],
-        #                    ['', '', 'R', 'R', 'R', '', ''],
-        #                    ['B', 'B', '', 'R', '', 'W', 'W'],
-        #                    ['B', 'B', '', '', '', 'W', 'W']]
-        self._gameboard = [['', '', '', '', 'W', 'B', 'B'],
-                           ['W', 'W', '', 'W', '', 'B', 'B'],
-                           ['', '', 'W', 'R', 'R', 'R', 'B'],
+        self._gameboard = [['W', 'W', '', '', '', 'B', 'B'],
+                           ['W', 'W', '', 'R', '', 'B', 'B'],
+                           ['', '', 'R', 'R', 'R', '', ''],
                            ['', 'R', 'R', 'R', 'R', 'R', ''],
                            ['', '', 'R', 'R', 'R', '', ''],
                            ['B', 'B', '', 'R', '', 'W', 'W'],
-                           ['B', 'B', '', 'R', '', 'W', 'W']]
+                           ['B', 'B', '', '', '', 'W', 'W']]
+
 
     def get_current_turn(self) :
         """ returns players name whose turn it is
