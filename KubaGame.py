@@ -68,9 +68,9 @@ class KubaGame :
         """
         row = coordinates[0]
         column = coordinates[1]
-        if self._gameboard[row][column] != '' :
+        if self._gameboard[row][column] != '':
             return self._gameboard[row][column]
-        else :
+        else:
             return 'X'
 
     def get_marble_count(self) :
@@ -325,17 +325,16 @@ class KubaGame :
                 if self._gameboard[row][6] == self._playerA[1] and '' not in self._gameboard[row] :
                     return False
                 else :
+                    if player_name == self._playerA[0] :
+                        self.set_current_turn(self._playerB[0])
+                    elif self._player_turn == self._playerB[0] :
+                        self.set_current_turn(self._playerA[0])
                     return self.make_move_helper(player_name, coordinates, direction)
             elif player_name == self._playerB[0] :
                 if self._gameboard[row][6] == self._playerB[1] and '' not in self._gameboard[row] :
                     return False
                 else :
-                    if self._player_turn is None :
-                        if player_name == self._playerA[0]:
-                            self.set_current_turn(self._playerB[0])
-                        elif player_name == self._playerB[0]:
-                            self.set_current_turn(self._playerA[0])
-                    elif self._player_turn == self._playerA[0] :
+                    if player_name == self._playerA[0] :
                         self.set_current_turn(self._playerB[0])
                     elif self._player_turn == self._playerB[0] :
                         self.set_current_turn(self._playerA[0])
@@ -349,17 +348,16 @@ class KubaGame :
                 if self._gameboard[row][0] == self._playerA[1] :
                     return False
                 else :
+                    if player_name == self._playerA[0] :
+                        self.set_current_turn(self._playerB[0])
+                    elif self._player_turn == self._playerB[0] :
+                        self.set_current_turn(self._playerA[0])
                     return self.make_move_helper(player_name, coordinates, direction)
             elif player_name == self._playerB[0] :
                 if self._gameboard[row][0] == self._playerB[1] :
                     return False
                 else :
-                    if self._player_turn is None :
-                        if player_name == self._playerA[0]:
-                            self.set_current_turn(self._playerB[0])
-                        elif player_name == self._playerB[0]:
-                            self.set_current_turn(self._playerA[0])
-                    elif self._player_turn == self._playerA[0] :
+                    if player_name == self._playerA[0] :
                         self.set_current_turn(self._playerB[0])
                     elif self._player_turn == self._playerB[0] :
                         self.set_current_turn(self._playerA[0])
@@ -375,18 +373,17 @@ class KubaGame :
                     column_list.clear()
                     return False
                 else :
+                    if player_name == self._playerA[0] :
+                        self.set_current_turn(self._playerB[0])
+                    elif self._player_turn == self._playerB[0] :
+                        self.set_current_turn(self._playerA[0])
                     return self.make_move_helper(player_name, coordinates, direction)
             elif player_name == self._playerB[0] :
                 if self._gameboard[0][column] == self._playerB[1] and '' not in column_list :
                     column_list.clear()
                     return False
                 else :
-                    if self._player_turn is None :
-                        if player_name == self._playerA[0]:
-                            self.set_current_turn(self._playerB[0])
-                        elif player_name == self._playerB[0]:
-                            self.set_current_turn(self._playerA[0])
-                    elif self._player_turn == self._playerA[0] :
+                    if player_name == self._playerA[0] :
                         self.set_current_turn(self._playerB[0])
                     elif self._player_turn == self._playerB[0] :
                         self.set_current_turn(self._playerA[0])
@@ -400,18 +397,17 @@ class KubaGame :
                     column_list.clear()
                     return False
                 else :
+                    if player_name == self._playerA[0] :
+                        self.set_current_turn(self._playerB[0])
+                    elif self._player_turn == self._playerB[0] :
+                        self.set_current_turn(self._playerA[0])
                     return self.make_move_helper(player_name, coordinates, direction)
             elif player_name == self._playerB[0] :
                 if self._gameboard[6][column] == self._playerB[1] and '' not in column_list :
                     column_list.clear()
                     return False
                 else :
-                    if self._player_turn is None :
-                        if player_name == self._playerA[0]:
-                            self.set_current_turn(self._playerB[0])
-                        elif player_name == self._playerB[0]:
-                            self.set_current_turn(self._playerA[0])
-                    elif self._player_turn == self._playerA[0] :
+                    if player_name == self._playerA[0] :
                         self.set_current_turn(self._playerB[0])
                     elif self._player_turn == self._playerB[0] :
                         self.set_current_turn(self._playerA[0])
