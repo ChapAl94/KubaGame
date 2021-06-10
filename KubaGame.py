@@ -437,17 +437,17 @@ class KubaGame :
 
 
 
+# #
+# game = KubaGame(('PlayerA', 'W'), ('PlayerB', 'B'))
+# print(game.get_marble_count()) #returns (8,8,13)
 #
-game = KubaGame(('PlayerA', 'W'), ('PlayerB', 'B'))
-print(game.get_marble_count()) #returns (8,8,13)
-
-print(game.make_move('PlayerA', (2,2), 'R'))
-# print(game.make_move('PlayerA', (6,5), 'L')) #Cannot make this move
-print(game.get_captured('PlayerA')) #returns 0
-print(game.get_current_turn()) #returns 'PlayerB' because PlayerA has just played.
-print(game.get_winner()) #returns None
-print(game.get_marble_count())
-#
-# print(game.get_marble((5,5)) )#returns 'W'
-# print(game.move_right_board('John',0,4))
-print(game._gameboard)
+# print(game.make_move('PlayerA', (2,2), 'R'))
+# # print(game.make_move('PlayerA', (6,5), 'L')) #Cannot make this move
+# print(game.get_captured('PlayerA')) #returns 0
+# print(game.get_current_turn()) #returns 'PlayerB' because PlayerA has just played.
+# print(game.get_winner()) #returns None
+# print(game.get_marble_count())
+# #
+# # print(game.get_marble((5,5)) )#returns 'W'
+# # print(game.move_right_board('John',0,4))
+# print(game._gameboard)
