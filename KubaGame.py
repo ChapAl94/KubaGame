@@ -45,6 +45,10 @@ class KubaGame :
         """
         return self._player_turn
 
+    def set_current_turn(self, player_name):
+        self._player_turn = player_name
+        return self._player_turn
+
     def get_winner(self) :
         """ returns winner of the game
             if no winner return none
@@ -141,6 +145,12 @@ class KubaGame :
         self.move_left_board(player_name,row, column - 1)
         self._gameboard[row][column - 1] = self._gameboard[row][column]
         self._gameboard[row][column] = ''
+        if self._player_turn is None :
+            self.set_current_turn(player_name)
+        elif self._player_turn == self._playerA[0] :
+            self.set_current_turn(self._playerB[0])
+        elif self._player_turn == self._playerB[0] :
+            self.set_current_turn(self._playerA[0])
         return True
 
     def move_right_board(self, player_name, row, column) :
@@ -182,6 +192,13 @@ class KubaGame :
         self.move_right_board(player_name, row, column + 1)
         self._gameboard[row][column + 1] = self._gameboard[row][column]
         self._gameboard[row][column] = ''
+        self.set_current_turn(player_name)
+        if self._player_turn is None :
+            self.set_current_turn(player_name)
+        elif self._player_turn == self._playerA[0] :
+            self.set_current_turn(self._playerB[0])
+        elif self._player_turn == self._playerB[0] :
+            self.set_current_turn(self._playerA[0])
         return True
     def move_forward_board(self, player_name, row, column):
         """
@@ -231,6 +248,13 @@ class KubaGame :
         self.move_forward_board(player_name, row-1, column)
         self._gameboard[row-1][column] = self._gameboard[row][column]
         self._gameboard[row][column] = ''
+        self.set_current_turn(player_name)
+        if self._player_turn is None :
+            self.set_current_turn(player_name)
+        elif self._player_turn == self._playerA[0] :
+            self.set_current_turn(self._playerB[0])
+        elif self._player_turn == self._playerB[0] :
+            self.set_current_turn(self._playerA[0])
         return True
 
     def move_back_board(self, player_name, row, column):
@@ -276,6 +300,13 @@ class KubaGame :
         self.move_back_board(player_name, row+1,column)
         self._gameboard[row+1][column] = self._gameboard[row][column]
         self._gameboard[row][column] = ''
+        self.set_current_turn(player_name)
+        if self._player_turn is None :
+            self.set_current_turn(player_name)
+        elif self._player_turn == self._playerA[0] :
+            self.set_current_turn(self._playerB[0])
+        elif self._player_turn == self._playerB[0] :
+            self.set_current_turn(self._playerA[0])
         return True
 
     def make_move_helper(self, player_name, coordinates, direction):
@@ -340,8 +371,7 @@ class KubaGame :
                     return False
                 else:
                     return self.make_move_helper(player_name, coordinates, direction)
-            # else:
-            #     pass
+
         elif direction == 'L':
             if self._gameboard[coordinates[0]][coordinates[1]+1] != '' and coordinates[1] < 6:
                 return False
@@ -389,8 +419,8 @@ class KubaGame :
                     return False
                 else:
                     return self.make_move_helper(player_name, coordinates, direction)
-            # else:
-            #     pass
+
+
         # else:
         #     self._previous_move.clear()
         #     self._previous_move.append(coordinates)
@@ -413,11 +443,12 @@ class KubaGame :
 
 
 
-# game = KubaGame(('John', 'W'), ('PlayerB', 'B'))
-# print(game.get_marble_count())
-# print(game.move_back_board('John',0,0))
-# print(game._gameboard)
-# # print(game.make_move('John',(0,0),'B'))
-# print(game._gameboard[0])
-# # print(game._gameboard)
-# # print(game._previous_move)
+game = KubaGame(('PlayerA', 'W'), ('PlayerB', 'B'))
+print(game.get_marble_count()) #returns (8,8,13)
+print(game.get_captured('PlayerA')) #returns 0
+game.make_move('PlayerA', (6,5), 'F')
+game.make_move('PlayerA', (6,5), 'L') #Cannot make this move
+print(game.get_current_turn()) #returns 'PlayerB' because PlayerA has just played.
+game.get_winner() #returns None
+
+game.get_marble((5,5)) #returns 'W'
