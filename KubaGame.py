@@ -444,7 +444,7 @@ class KubaGame :
 
 
 #
-game = KubaGame(('PlayerA', 'W'), ('PlayerB', 'B'))
+# game = KubaGame(('PlayerA', 'W'), ('PlayerB', 'B'))
 # print(game.get_marble_count()) #returns (8,8,13)
 #
 # print(game.make_move('PlayerA', (0,7), 'R'))
@@ -454,5 +454,5 @@ game = KubaGame(('PlayerA', 'W'), ('PlayerB', 'B'))
 # print(game.get_winner()) #returns None
 #
 # print(game.get_marble((5,5)) )#returns 'W'
-print(game.move_right_board('John',0,4))
-print(game._gameboard)
+# print(game.move_right_board('John',0,4))
+# print(game._gameboard)
