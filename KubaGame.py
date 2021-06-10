@@ -1,149 +1,103 @@
 # Name: Albert Chap
 # Date: 01 June 2021
-# Description: Final Project
+# Description: Final Project Kuba Game simulator
 
-class KubaGame:
-    def __init__(self,playerA_tuple ,playerB_tuple):
+class KubaGame :
+    def __init__(self, playerA_tuple, playerB_tuple) :
         """ initializes the board with taking in the tuples for each player and determing
             This method is also for initializing the board.
         INITIALIZES BOARD
         """
-        self._playerA_name = playerA_tuple[0]
-        self._playerB_name = playerB_tuple[0]
-        self._playerA_color = playerA_tuple[1]
-        self._playerB_color = playerB_tuple[1]
-        self._playerA_pieces = {}  # create a dictionary of all the pieces W,B,R
-        self._playerB_pieces = {}  # create a dictionary of all teh pieces W,B,R
+        self._playerA = playerA_tuple
+        self._playerB = playerB_tuple
+        self._playerA_red_count = 0
+        self._playerB_red_count = 0
+        self._marble_count = (0,0,0)
+        self._marble_count_list = list(self._marble_count)
+
+        self._playerA_W_counter = 0
+        self._playerA_B_counter = 0
+        self._playerA_R_counter = 0
+        self._playerB_W_counter = 0
+        self._playerB_B_counter = 0
+        self._playerB_R_counter = 0
+
+        self._playerA_pieces = [self._playerA_W_counter,self._playerA_B_counter,self._playerA_R_counter]  # create a dictionary of all the pieces W,B,R
+        self._playerB_pieces = [self._playerB_W_counter,self._playerB_B_counter, self._playerB_R_counter]  # create a dictionary of all teh pieces W,B,R
+
         self._winner = None
-        self._playerturn = None
+        self._player_turn = None
         self._white = 'W'
         self._black = 'B'
-        self._previous_board_orientation = []               #This matrix can store previous board movement and will get updated
-        self._gameboard = [['W','W','','','','B','B'],
-                           ['W','W','','R','','B','B'],
-                           ['','','R','R','R','',''],
-                           ['','R','R','R','R','R',''],
-                           ['','','R','R','R','',''],
-                           ['W','W','','R','','B','B'],
-                           ['W','W','','','','B','B']]
+        self._previous_move = []  # This matrix can store previous board movement and will get updated
+        self._gameboard = [['W', 'W', '', '', '', 'B', 'B'],
+                           ['W', 'W', '', 'R', '', 'B', 'B'],
+                           ['', '', 'R', 'R', 'R', '', ''],
+                           ['', 'R', 'R', 'R', 'R', 'R', ''],
+                           ['', '', 'R', 'R', 'R', '', ''],
+                           ['W', 'W', '', 'R', '', 'B', 'B'],
+                           ['W', 'W', '', '', '', 'B', 'B']]
 
-    def get_current_turn(self):
+    def get_current_turn(self) :
         """ returns players name whose turn it is
             return none if no player has made first move yet
             TRACK PLAYERS TURN
         """
-        return self._playerturn
+        return self._player_turn
 
-    def get_winner(self):
+    def get_winner(self) :
         """ returns winner of the game
             if no winner return none
         """
         return self._winner
 
-    def set_winner(self, name):
+    def set_winner(self, name) :
         """"
         sets winner of the game ,m updates winner
         """
         self._winner = name
 
-    def get_captured(self, player_name):
+    def get_captured(self, player_name) :
         """
         returns the number of Red marbles captured by the player
         :param player_name:
         :return:
         """
-        if player_name == self._playerA_name:
+        if player_name == self._playerA[0] :
             return self._playerA_pieces[2]
-        elif player_name == self._playerB_name:
+        elif player_name == self._playerB[0] :
             return self._playerB_pieces[2]
 
-    def get_marble(self, coordinates):
+    def get_marble(self, coordinates) :
         """
         use coordinates given in tuple format to extract the row and column
-        to find what marble is there. compare agains the current game board.
+        to find what marble is there. compare against the current game board.
         """
         row = coordinates[0]
         column = coordinates[1]
+        if self._gameboard[row][column] != '':
+            return self._gameboard[row][column]
+        else:
+            return 'X'
 
-        return self._gameboard[row][column]
-
-    def get_marble_count(self):
+    def get_marble_count(self) :
         """
         GET MARBLE COUNT
         scans the current board to get how many per each, returns a tuple (W,B,R)
         :return:
         """
-        red_counter = 0
-        white_counter = 0
-        black_counter = 0
-        for i in self._gameboard:
-            for j in i:
-                if j == 'R':
-                    red_counter += 1
-                elif j == 'B':
-                    black_counter += 1
-                elif j=='W':
-                    white_counter += 1
-        piece_tuple = (white_counter,black_counter,red_counter)
-        return piece_tuple
+        for i in self._gameboard :
+            for j in i :
+                if j == 'R' :
+                    self._marble_count_list[2] += 1
+                elif j == 'B' :
+                    self._marble_count_list[1] += 1
+                elif j == 'W' :
+                    self._marble_count_list[0] += 1
+        self._marble_count = tuple(self._marble_count_list)
+        return self._marble_count
 
-
-
-
-    def move_left(self, column,row_board):
-        """
-        -input is a list.
-        -This method keeps track of the left movement of a list.
-        -This takes column and creates a separate temporary list that goes from beginning to what is called and
-        will be reversed using reverse()
-        -Another list is made and for the remainder of that row to add in the end.
-        -iterate through the reversed temp list to find '' spaces if there is it will create another
-        temp list = temp_list2
-        slice from beginning of this templist2  till index of space and use rotation code.
-        create a templist three to slice templist1 from index after space to end
-        -combine all the lists and revers it assign to temp1_list and reverse back
-        -new_row will be temp1list plus end part.
-
-        return new_row
-
-        :param coordinates:
-        :param board:
-        :return: new_row
-        """
-
-
-
-        pass
-
-    def move_right(self, column, row_board):
-        """
-        input is a list.
-        This method will be used to keep track of all right movement for given list.
-        - create a temp list templist1 that takes the list from the given column input till end of the list using slicing
-        - slice the input list from beginning (this will be used for later to put together the whole mutated list)
-        - iterate through templist1 if there is a ''
-            - find index of the ''
-            -create  a templist2 slicing temp1list from beginning to the location of the '' (index)
-            - rotate that templist once
-            -create another templist for the ending part of templist2
-            -create a paramter new_row that adds beginning list, the rotate list, and end
-        -else:
-         - create beg list slice row_board from beg to column
-         -create another list slice from row_board from column to end
-         -new row = adding all those lists
-
-         return new_row
-
-
-        :param coordinates:
-        :param board:
-        :return: new_row
-        """
-
-
-        pass
-
-    def move_left_board(self,row,column,board):
+    def move_left_board(self, player_name, row, column):
         """
         this method utilizes the move_left method,
         uses row to grab specific row and create a new list = row_board
@@ -157,27 +111,79 @@ class KubaGame:
         :param board:
         :return: new board
         """
-        pass
+        if column == 0 :
+            if self._gameboard[row][0] == 'R':
+                if player_name == self._playerA[0] :
+                    self._playerA_red_count += 1
+                    if self._playerA_red_count == 7 :
+                        self._winner = self._playerA[0]
+                else :
+                    self._playerB_red_count += 1
+                    if self._playerB_red_count == 7 :
+                        self._winner = self._playerB[0]
+            elif self._playerA[1] != self._gameboard[row][0] :
+                if self._playerB[1] == 'B' :
+                    if self._marble_count[1] == 1 :
+                        self._winner = self._playerA[0]
+                elif self._playerB[1] == 'W' :
+                    if self._marble_count[0] == 1 :
+                        self._winner = self._playerA[0]
+            elif self._playerB[1] != self._gameboard[row][0] :
+                if self._playerA[1] == 'B' :
+                    if self._marble_count[1] == 1 :
+                        self._winner = self._playerB[0]
+                elif self._playerA[1] == 'W' :
+                    if self._marble_count[0] == 1 :
+                        self._winner = self._playerB[0]
+            self._gameboard[row][0] = ''
+        elif self._gameboard[row][column] == '' :
+            return ""
+        self.move_left_board(player_name,row, column - 1)
+        self._gameboard[row][column - 1] = self._gameboard[row][column]
+        self._gameboard[row][column] = ''
+        return True
 
-    def move_right_board(self,row,column,board):
+    def move_right_board(self, player_name, row, column) :
         """
-        this method utilitizes move right method,
-        -uses row parameter to grab a specific row and create a new list = row_board
-        calls move right method( column, row_board
-        pop old row from board
-        insert new row from board
-        return new row
-
+        right movement on the board takes in the following parameters:
+        :param player_name:
         :param row:
         :param column:
         :param board:
         :return:
         """
-
-
-        pass
-
-    def move_foward_board(self, row, column, board):
+        if column == 6 :
+            if self._gameboard[row][6] == 'R':
+                if player_name == self._playerA[0] :
+                    self._playerA_red_count += 1
+                    if self._playerA_red_count == 7 :
+                        self._winner = self._playerA[0]
+                else :
+                    self._playerB_red_count += 1
+                    if self._playerB_red_count == 7 :
+                        self._winner = self._playerB[0]
+            elif self._playerA[1] != self._gameboard[row][6] :
+                if self._playerB[1] == 'B' :
+                    if self._marble_count[1] == 1 :
+                        self._winner = self._playerA[0]
+                elif self._playerB[1] == 'W' :
+                    if self._marble_count[0] == 1 :
+                        self._winner = self._playerA[0]
+            elif self._playerB[1] != self._gameboard[row][6] :
+                if self._playerA[1] == 'B' :
+                    if self._marble_count[1] == 1 :
+                        self._winner = self._playerB[0]
+                elif self._playerA[1] == 'W' :
+                    if self._marble_count[0] == 1 :
+                        self._winner = self._playerB[0]
+            self._gameboard[row][6] = ''
+        elif self._gameboard[row][column] == '':
+            return ""
+        self.move_right_board(player_name, row, column + 1)
+        self._gameboard[row][column + 1] = self._gameboard[row][column]
+        self._gameboard[row][column] = ''
+        return True
+    def move_forward_board(self, player_name, row, column):
         """
         This method will keep track of up ward movement
         - will iterate through the current matrix (get current board setup) of the board and grab the individual
@@ -194,9 +200,40 @@ class KubaGame:
         :param board:
         :return:new board layout (update new board layout and put new board in the list in init method)
         """
-        pass
+        if row == 0:
+            if self._gameboard[row][column] == 'R':
+                if player_name == self._playerA[0]:
+                    self._playerA_red_count += 1
+                    if self._playerA_red_count == 7:
+                        self._winner = self._playerA[0]
+                else:
+                    self._playerB_red_count += 1
+                    if self._playerB_red_count == 7 :
+                        self._winner = self._playerB[0]
+            elif self._playerA[1] != self._gameboard[0][column] :
+                if self._playerB[1] == 'B' :
+                    if self._marble_count[1] == 1 :
+                        self._winner = self._playerA[0]
+                elif self._playerB[1] == 'W' :
+                    if self._marble_count[0] == 1 :
+                        self._winner = self._playerA[0]
+            elif self._playerB[1] != self._gameboard[0][column] :
+                if self._playerA[1] == 'B' :
+                    if self._marble_count[1] == 1 :
+                        self._winner = self._playerB[0]
+                elif self._playerA[1] == 'W' :
+                    if self._marble_count[0] == 1 :
+                        self._winner = self._playerB[0]
+            self._gameboard[0][column] = ''
+        elif self._gameboard[row][column] == '':
+            return ""
+        # self._gameboard[0][column] = ''
+        self.move_forward_board(player_name, row-1, column)
+        self._gameboard[row-1][column] = self._gameboard[row][column]
+        self._gameboard[row][column] = ''
+        return True
 
-    def move_back_board(self, row, column, board):
+    def move_back_board(self, player_name, row, column):
         """
         This method will keep track of the backwards movement
         - iterate through the current matrix (get current board setup) of the board and grab the individual elements and
@@ -208,84 +245,59 @@ class KubaGame:
         :param board:
         :return: new board layout
         """
-        pass
-
-    def winning_conditions(self, player):
-        """
-        take a look at the key of the player
-        if player has seven R
+        if row == 6:
+            if self._gameboard[6][column] == 'R':
+                if player_name == self._playerA[0]:
+                    self._playerA_red_count += 1
+                    if self._playerA_red_count == 7:
+                        self._winner = self._playerA[0]
+                else:
+                    self._playerB_red_count += 1
+                    if self._playerB_red_count == 7:
+                        self._winner = self._playerB[0]
+            elif self._playerA[1] != self._gameboard[6][column]:
+                if self._playerB[1] == 'B':
+                    if self._marble_count[1] == 1:
+                        self._winner = self._playerA[0]
+                elif self._playerB[1] == 'W':
+                    if self._marble_count[0] == 1:
+                        self._winner = self._playerA[0]
+            elif self._playerB[1] != self._gameboard[6][column] :
+                if self._playerA[1] == 'B' :
+                    if self._marble_count[1] == 1 :
+                        self._winner = self._playerB[0]
+                elif self._playerA[1] == 'W' :
+                    if self._marble_count[0] == 1 :
+                        self._winner = self._playerB[0]
+            self._gameboard[6][column] = ''
+        elif self._gameboard[row][column] == '':
+            return ""
+        # self._gameboard[6][column] = ''
+        self.move_back_board(player_name, row+1,column)
+        self._gameboard[row+1][column] = self._gameboard[row][column]
+        self._gameboard[row][column] = ''
         return True
 
-        if player has all opposing color
-        return True
-
-        else return false
-        :param player:
-        :return: Boolean: True or False
-        """
-        pass
-
-    def validate_mov(self, player, coordinates, direction):
-        """
-        VALIDATE A MOVE
-        check if current player is equal to players turn
-            if not return false else return trur
-        if direction is left: extract coordinates from tuple
-            use get_marble method and pass coordinates to behind the current coordinate through it
-            if value from get_marble is '' return true else return false
-            use move_left_board to get board orientation and compare if in board orientation list
-            if so return false
-        if direction is right:
-            use get_marbel method and pass coordinates to left of current coordinate
-            if value is '' return true else false
-            use move_right_board to get board orientation and compare if in board orientation list
-            return false
-        if direction is forward:
-            use get marble method and pass coordinate below:
-             if value is '' return true else false
-             use move_foward_board to get board orientation and compare if in board orientation list
-             return false
-        if direction is backwards:
-            use get marble method and pass coordinate above:
-             if value is '' return true else false
-             use move_backward_board to get board orientation and compare if in board orientation list
-             return false
-        if  winning conditions are true
-            return False
+    def make_move_helper(self, player_name, coordinates, direction):
+        row = coordinates[0]
+        column = coordinates[1]
+        self._previous_move.clear()
+        self._previous_move.append(coordinates)
+        if direction == 'L' :
+            self._previous_move.append(direction)
+            return self.move_left_board(player_name, row, column)
+        elif direction == 'R' :
+            self._previous_move.append(direction)
+            return self.move_right_board(player_name, row, column)
+        elif direction == 'F' :
+            self._previous_move.append(direction)
+            return self.move_forward_board(player_name, row, column)
+        elif direction == 'B' :
+            self._previous_move.append(direction)
+            return self.move_back_board(player_name, row, column)
 
 
-
-        :param player:
-        :param coordinates:
-        :param direction:
-        :return: boolean: True or False
-        """
-        pass
-
-    def score(self, player, coordinates, direction, board):
-        """
-        create a scoring list =
-        -if L use coordinates to extract row from board
-         to find if there are no spaces from beginning of list to location of the list
-            if true:
-                check to see what color and if so update
-            else return none
-        -if R use cooridates to extract row form board to find if there are no spaces from location to end of row
-            if true:
-                check to see what color and if so update
-            else return none
-        -if F use coordinates to extract row form board to find if there are no spaces from location
-                check to see what color and update list with player and list
-            return None
-        -if B use same logic
-            return None
-        :param coordinates:
-        :param board:
-        :return: a list [player, color]
-        """
-        pass
-
-    def make_move(self, playername, coordinates,direction):
+    def make_move(self, player_name, coordinates, direction) :
         """
         USES OTHER METHODS TO DETERMINE MOVEMENT ON BOARD
 
@@ -307,7 +319,105 @@ class KubaGame:
         :return: boolean: True or False
 
         """
-    pass
+        # Sets the rows and columns from the parameter to use in methods
+        row = coordinates[0]
+        column = coordinates[1]
+        if (row not in range(0,7) or column not in range(0,7)) or\
+            (coordinates in self._previous_move and direction in self._previous_move) or \
+             (self._player_turn != player_name and self._player_turn is not None) or\
+            (self._gameboard[row][column] == '' or self._winner is not None):
+            return False
+        elif direction == 'R':
+            if self._gameboard[coordinates[0]][coordinates[1]-1] != '' and coordinates[1] > 0:
+                return False
+            elif player_name == self._playerA[0]:
+                if self._gameboard[row][6] == self._playerA[1] and '' not in self._gameboard[row]:
+                    return False
+                else:
+                    return self.make_move_helper(player_name,coordinates,direction)
+            elif player_name == self._playerB[0]:
+                if self._gameboard[row][6] == self._playerB[1] and '' not in self._gameboard[row]:
+                    return False
+                else:
+                    return self.make_move_helper(player_name, coordinates, direction)
+            # else:
+            #     pass
+        elif direction == 'L':
+            if self._gameboard[coordinates[0]][coordinates[1]+1] != '' and coordinates[1] < 6:
+                return False
+            elif player_name == self._playerA[0]:
+                if self._gameboard[row][0] == self._playerA[1]:
+                    return False
+                else:
+                    return self.make_move_helper(player_name, coordinates, direction)
+            elif player_name == self._playerB[0]:
+                if self._gameboard[row][0] == self._playerB[1]:
+                    return False
+                else:
+                    return self.make_move_helper(player_name, coordinates, direction)
+            # else:
+            #     pass
+        elif direction == 'F':
+            column_list = [i[column] for i in self._gameboard]
+            if row < 6 and self._gameboard[row+1][column] != '':
+                return False
+            elif player_name == self._playerA[0]:
+                if self._gameboard[0][column] == self._playerA[1] and '' not in column_list:
+                    column_list.clear()
+                    return False
+                else:
+                    return self.make_move_helper(player_name, coordinates, direction)
+            elif player_name == self._playerB[0]:
+                if self._gameboard[0][column] == self._playerB[1] and '' not in column_list:
+                    column_list.clear()
+                    return False
+                else:
+                    return self.make_move_helper(player_name, coordinates, direction)
+        elif direction == 'B':
+            column_list = [i[column] for i in self._gameboard]
+            if row > 0 and self._gameboard[row-1][column] != '':
+                return False
+            elif player_name == self._playerA[0]:
+                if self._gameboard[6][column] == self._playerA[1] and '' not in column_list:
+                    column_list.clear()
+                    return False
+                else:
+                    return self.make_move_helper(player_name, coordinates, direction)
+            elif player_name == self._playerB[0]:
+                if self._gameboard[6][column] == self._playerB[1] and '' not in column_list:
+                    column_list.clear()
+                    return False
+                else:
+                    return self.make_move_helper(player_name, coordinates, direction)
+            # else:
+            #     pass
+        # else:
+        #     self._previous_move.clear()
+        #     self._previous_move.append(coordinates)
+        #     if direction == 'L':
+        #         self._previous_move.append(direction)
+        #         return self.move_left_board(player_name, row, column)
+        #     elif direction == 'R':
+        #         self._previous_move.append(direction)
+        #         return self.move_right_board(player_name, row, column)
+        #     elif direction == 'F' :
+        #         self._previous_move.append(direction)
+        #         return self.move_forward_board(player_name, row, column)
+        #     elif direction == 'B' :
+        #         self._previous_move.append(direction)
+        #         return self.move_back_board(player_name, row, column)
+        #     return True
 
-game = KubaGame(('PlayerA', 'W'), ('PlayerB', 'B'))
-print(game.get_marble_count())
+
+
+
+
+
+# game = KubaGame(('John', 'W'), ('PlayerB', 'B'))
+# print(game.get_marble_count())
+# print(game.move_back_board('John',0,0))
+# print(game._gameboard)
+# # print(game.make_move('John',(0,0),'B'))
+# print(game._gameboard[0])
+# # print(game._gameboard)
+# # print(game._previous_move)
