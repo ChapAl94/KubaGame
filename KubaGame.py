@@ -14,17 +14,6 @@ class KubaGame :
         self._playerB_red_count = 0
         self._marble_count = (0,0,0)
         self._marble_count_list = list(self._marble_count)
-
-        self._playerA_W_counter = 0
-        self._playerA_B_counter = 0
-        self._playerA_R_counter = 0
-        self._playerB_W_counter = 0
-        self._playerB_B_counter = 0
-        self._playerB_R_counter = 0
-
-        self._playerA_pieces = [self._playerA_W_counter,self._playerA_B_counter,self._playerA_R_counter]  # create a dictionary of all the pieces W,B,R
-        self._playerB_pieces = [self._playerB_W_counter,self._playerB_B_counter, self._playerB_R_counter]  # create a dictionary of all teh pieces W,B,R
-
         self._winner = None
         self._player_turn = None
         self._white = 'W'
@@ -39,7 +28,7 @@ class KubaGame :
         #                    ['B', 'B', '', '', '', 'W', 'W']]
         self._gameboard = [['', '', '', '', 'W', 'B', 'B'],
                            ['W', 'W', '', 'W', '', 'B', 'B'],
-                           ['', '', 'R', 'R', 'R', '', ''],
+                           ['', '', 'W', 'R', 'R', 'R', 'B'],
                            ['', 'R', 'R', 'R', 'R', 'R', ''],
                            ['', '', 'R', 'R', 'R', '', ''],
                            ['B', 'B', '', 'R', '', 'W', 'W'],
@@ -97,15 +86,20 @@ class KubaGame :
         scans the current board to get how many per each, returns a tuple (W,B,R)
         :return:
         """
-        for i in self._gameboard :
-            for j in i :
+        self._marble_count_list[0] = 0
+        self._marble_count_list[1] = 0
+        self._marble_count_list[2] = 0
+        for i in self._gameboard:
+            for j in i:
                 if j == 'R' :
                     self._marble_count_list[2] += 1
+                    self._marble_count = tuple(self._marble_count_list)
                 elif j == 'B' :
                     self._marble_count_list[1] += 1
+                    self._marble_count = tuple(self._marble_count_list)
                 elif j == 'W' :
                     self._marble_count_list[0] += 1
-        self._marble_count = tuple(self._marble_count_list)
+                    self._marble_count = tuple(self._marble_count_list)
         return self._marble_count
 
     def move_left_board(self, player_name, row, column):
@@ -444,15 +438,16 @@ class KubaGame :
 
 
 #
-# game = KubaGame(('PlayerA', 'W'), ('PlayerB', 'B'))
-# print(game.get_marble_count()) #returns (8,8,13)
-#
-# print(game.make_move('PlayerA', (0,7), 'R'))
+game = KubaGame(('PlayerA', 'W'), ('PlayerB', 'B'))
+print(game.get_marble_count()) #returns (8,8,13)
+
+print(game.make_move('PlayerA', (2,2), 'R'))
 # print(game.make_move('PlayerA', (6,5), 'L')) #Cannot make this move
-# print(game.get_captured('PlayerA')) #returns 0
-# print(game.get_current_turn()) #returns 'PlayerB' because PlayerA has just played.
-# print(game.get_winner()) #returns None
+print(game.get_captured('PlayerA')) #returns 0
+print(game.get_current_turn()) #returns 'PlayerB' because PlayerA has just played.
+print(game.get_winner()) #returns None
+print(game.get_marble_count())
 #
 # print(game.get_marble((5,5)) )#returns 'W'
 # print(game.move_right_board('John',0,4))
-# print(game._gameboard)
+print(game._gameboard)
